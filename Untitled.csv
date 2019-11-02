@@ -1,0 +1,2 @@
+id,name,phone_number,address,insurance,dob,gender,care_taker,medications,appointments
+1,Mick,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
