@@ -67,8 +67,11 @@ CREATE TABLE `equipment` (
   `owned_leased` varchar(45) DEFAULT NULL,
   `warranty` varchar(200) DEFAULT NULL,
   `lease_terms` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`idequipment`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `vendors_idvendors` int(11) NOT NULL,
+  PRIMARY KEY (`idequipment`),
+  KEY `fk_equipment_vendors1_idx` (`vendors_idvendors`),
+  CONSTRAINT `fk_equipment_vendors1` FOREIGN KEY (`vendors_idvendors`) REFERENCES `vendors` (`idvendors`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,6 +80,7 @@ CREATE TABLE `equipment` (
 
 LOCK TABLES `equipment` WRITE;
 /*!40000 ALTER TABLE `equipment` DISABLE KEYS */;
+INSERT INTO `equipment` VALUES (1,NULL,NULL,NULL,NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `equipment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -289,6 +293,32 @@ INSERT INTO `physician` VALUES ('James','1','661-312-6966','8/17, 8/19, 8/20','N
 UNLOCK TABLES;
 
 --
+-- Table structure for table `vendors`
+--
+
+DROP TABLE IF EXISTS `vendors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `vendors` (
+  `idvendors` int(11) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `ven_address` varchar(100) DEFAULT NULL,
+  `type_equip` varchar(45) DEFAULT NULL,
+  `preferred` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`idvendors`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vendors`
+--
+
+LOCK TABLES `vendors` WRITE;
+/*!40000 ALTER TABLE `vendors` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vendors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping routines for database 'HealthTrack'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -301,4 +331,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-06 10:11:34
+-- Dump completed on 2019-11-06 11:26:06
