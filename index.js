@@ -30,7 +30,7 @@ const app = express()
 //add patient 
 app.get('/addpatient', (req,res) =>{
   //let patient= {name:'Evan Kosmos', phone_number: 123, address: null, insurance: null, dob: null, gender: null, care_taker:null, medications: null, appointments: null};
-  let patient = {name:req.body.name, phone_number:req.body.phone_number, address:req.body.address, insurance:req.body.insurance, dob:new Date(req.body.dob), gender:req.body.gender, care_taker:reg.body.care_taker, medications:req.body.medications, appointments:req.body.appointments};
+  let patient = {name:req.body.name, phone_number:req.body.phone_number, address:req.body.address, insurance:req.body.insurance, dob:new Date(req.body.dob), gender:req.body.gender, care_taker:req.body.care_taker, medications:req.body.medications, appointments:req.body.appointments};
   let sql = 'INSERT INTO patient_record SET ?';
   let query= db.query(sql, patient, (err, result) => {
     if(err){
@@ -227,7 +227,7 @@ app.get('/deletepatient', (req, res) =>{
 //add encounter 
 app.get('/addencounter', (req,res) =>{
   //let patient= {name:'Evan Kosmos', phone_number: 123, address: null, insurance: null, dob: null, gender: null, care_taker:null, medications: null, appointments: null};
-  let patient = {name:req.body.name, phone_number:req.body.phone_number, address:req.body.address, insurance:req.body.insurance, dob:new Date(req.body.dob), gender:req.body.gender, care_taker:reg.body.care_taker, medications:req.body.medications, appointments:req.body.appointments};
+  let patient = {name:req.body.name, phone_number:req.body.phone_number, address:req.body.address, insurance:req.body.insurance, dob:new Date(req.body.dob), gender:req.body.gender, care_taker:req.body.care_taker, medications:req.body.medications, appointments:req.body.appointments};
   let sql = 'INSERT INTO HealthTrack.encounter_info SET ?';
   let query= db.query(sql, patient, (err, result) => {
     if(err){
