@@ -238,10 +238,9 @@ app.get('/deletepatient', (req, res) =>{
 //ECOUNTER INFO HTTP CALLS
 //add encounter 
 app.get('/addencounter', (req,res) =>{
-  //let patient= {name:'Evan Kosmos', phone_number: 123, address: null, insurance: null, dob: null, gender: null, care_taker:null, medications: null, appointments: null};
-  let patient = {name:req.body.name, phone_number:req.body.phone_number, address:req.body.address, insurance:req.body.insurance, dob:new Date(req.body.dob), gender:req.body.gender, care_taker:req.body.care_taker, medications:req.body.medications, appointments:req.body.appointments};
+  let encounter = {date:req.headers.date, physician:req.headers.physician, pat_complaints:req.headers.pat_complaints, vitals:req.headers.vitals, notes:req.headers.notes, lab_orders:req.headers.lab_orders, pharmacy_orders:req.headers.pharmacy_orders, diagnosis:req.headers.diagnosis, treatment_plan:req.headers.treatment_plan, referral:req.headers.referral, follow_up:req.headers.follow_up, pattient_record_id:req.headers.pattient_record_id};
   let sql = 'INSERT INTO HealthTrack.encounter_info SET ?';
-  let query= db.query(sql, patient, (err, result) => {
+  let query= db.query(sql, encounter, (err, result) => {
     if(err){
       console.log("Could not add encouter info :(");
       res.send('Error');
