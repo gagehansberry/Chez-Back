@@ -65,9 +65,10 @@ app.get('/getpatient', (req, res) =>{
 
 
 //update patient name
-app.get('/updatepatientname/:id', (req, res) =>{
-  let newName=req.body.name;
-  let sql = `UPDATE patient_record SET name = '${newName}' WHERE id= ${req.params.id}`;
+app.get('/updatepatientname', (req, res) =>{
+  let newName=req.headers.name;
+  let id = req.headers.id;
+  let sql = `UPDATE patient_record SET name = '${newName}' WHERE id= ${id}`;
   let query =db.query(sql, (err, result) =>{
     if(err){
       console.log('Error updating patient name');
@@ -80,10 +81,11 @@ app.get('/updatepatientname/:id', (req, res) =>{
 });
 
 //update patient phone number
-app.get('/updatepatientnumber/:id', (req, res) =>{
-  let newNumber = req.body.phone_number;
+app.get('/updatepatientnumber', (req, res) =>{
+  let newNumber = req.headers.phone_number;
+  let id= req.headers.id; 
   //let newName = 'James';
-  let sql = `UPDATE patient_record SET phone_number = '${newNumber}' WHERE id= ${req.params.id}`;
+  let sql = `UPDATE patient_record SET phone_number = '${newNumber}' WHERE id= ${id}`;
   let query =db.query(sql, (err, result) =>{
     if(err){
       console.log('Error updating patient number');
@@ -96,9 +98,10 @@ app.get('/updatepatientnumber/:id', (req, res) =>{
 });
 
 //update patient address
-app.get('/updatepatientaddress/:id', (req, res) =>{
-  let newAddy=req.body.address;
-  let sql = `UPDATE patient_record SET address = '${newAddy}' WHERE id= ${req.params.id}`;
+app.get('/updatepatientaddress', (req, res) =>{
+  let newAddy=req.headers.address;
+  let id = req.headers.id;
+  let sql = `UPDATE patient_record SET address = '${newAddy}' WHERE id= ${id}`;
   let query =db.query(sql, (err, result) =>{
     if(err){
       console.log('Error updating patient address');
@@ -113,9 +116,10 @@ app.get('/updatepatientaddress/:id', (req, res) =>{
 
 
 //update patient insurance
-app.get('/updatepatientinsurance/:id', (req, res) =>{
-  let newInsur =req.body.insurance;
-  let sql = `UPDATE patient_record SET insurance = '${newInsur}' WHERE id= ${req.params.id}`;
+app.get('/updatepatientinsurance', (req, res) =>{
+  let newInsur =req.headers.insurance;
+  let id = req.headers.id;
+  let sql = `UPDATE patient_record SET insurance = '${newInsur}' WHERE id= ${id}`;
   let query =db.query(sql, (err, result) =>{
     if(err){
       console.log('Error updating patient insurance');
@@ -130,9 +134,10 @@ app.get('/updatepatientinsurance/:id', (req, res) =>{
 
 
 //update patient dob
-app.get('/updatepatientdob/:id', (req, res) =>{
-  let newDOB =req.body.dob;
-  let sql = `UPDATE patient_record SET dob = '${newDOB}' WHERE id= ${req.params.id}`;
+app.get('/updatepatientdob', (req, res) =>{
+  let newDOB =req.headers.dob;
+  let id = req.headers.id;
+  let sql = `UPDATE patient_record SET dob = '${newDOB}' WHERE id= ${id}`;
   let query =db.query(sql, (err, result) =>{
     if(err){
       console.log('Error updating patient DOB');
@@ -146,9 +151,10 @@ app.get('/updatepatientdob/:id', (req, res) =>{
 
 
 //update patient gender
-app.get('/updatepatientgender/:id', (req, res) =>{
-  let newGen=req.body.gender;
-  let sql = `UPDATE patient_record SET gender = '${newGen}' WHERE id= ${req.params.id}`;
+app.get('/updatepatientgender', (req, res) =>{
+  let newGen=req.headers.gender;
+  let id= req.headers.id; 
+  let sql = `UPDATE patient_record SET gender = '${newGen}' WHERE id= ${id}`;
   let query =db.query(sql, (err, result) =>{
     if(err){
       console.log('Error updating patient gender');
@@ -163,9 +169,10 @@ app.get('/updatepatientgender/:id', (req, res) =>{
 
 
 //update patient care taker
-app.get('/updatepatientcaretaker/:id', (req, res) =>{
-  let newCare=req.body.care_taker;
-  let sql = `UPDATE patient_record SET care_taker = '${newCare}' WHERE id= ${req.params.id}`;
+app.get('/updatepatientcaretaker', (req, res) =>{
+  let newCare=req.headers.care_taker;
+  let id = req.headers.id;
+  let sql = `UPDATE patient_record SET care_taker = '${newCare}' WHERE id= ${id}`;
   let query =db.query(sql, (err, result) =>{
     if(err){
       console.log('Error updating patient care taker');
@@ -180,9 +187,10 @@ app.get('/updatepatientcaretaker/:id', (req, res) =>{
 
 
 //update patient medication
-app.get('/updatepatientmedication/:id', (req, res) =>{
-  let newMed=req.body.medications;
-  let sql = `UPDATE patient_record SET medications = '${newMed}' WHERE id= ${req.params.id}`;
+app.get('/updatepatientmedication', (req, res) =>{
+  let newMed=req.headers.medications;
+  let id= req.headers.id; 
+  let sql = `UPDATE patient_record SET medications = '${newMed}' WHERE id= ${id}`;
   let query =db.query(sql, (err, result) =>{
     if(err){
       console.log('Error updating patient medication');
@@ -195,9 +203,10 @@ app.get('/updatepatientmedication/:id', (req, res) =>{
 });
 
 //update patient appointments
-app.get('/updatepatientappointment/:id', (req, res) =>{
+app.get('/updatepatientappointment', (req, res) =>{
   let newApp=req.body.appointments;
-  let sql = `UPDATE patient_record SET appointments = '${newApp}' WHERE id= ${req.params.id}`;
+  let id=req.headers.id;
+  let sql = `UPDATE patient_record SET appointments = '${newApp}' WHERE id= ${id}`;
   let query =db.query(sql, (err, result) =>{
     if(err){
       console.log('Error updating patient appointments');
@@ -212,7 +221,7 @@ app.get('/updatepatientappointment/:id', (req, res) =>{
 
 //Delete patient from record
 app.get('/deletepatient', (req, res) =>{
-  let id= req.body.id;
+  let id= req.headers.id;
   let sql = `DELETE FROM patient_record WHERE id= ${id}`;
   let query =db.query(sql, (err, result) =>{
     if(err){
