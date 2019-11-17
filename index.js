@@ -48,17 +48,63 @@ app.get('/addpatient', (req,res) =>{
   });
 });
 
-//select records by patient id
-app.get('/getpatient', (req, res) =>{
-  let id=req.body.id;
-  let sql = `Select * FROM patient_record WHERE id= ${id}`;
+app.get('/getpatientrecord', (req, res) =>{
+  let sql = `Select * FROM patient_record`;
   let query =db.query(sql, (err, result) =>{
     if(err){
       console.log('Error fething patient info');
     }
     else{
       console.log(result);
-      res.send('Patient info fetched');
+      res.send(result);
+    }
+  });
+});
+
+//select records by patient id
+app.get('/getpatient/:id', (req, res) =>{
+  let id=req.params.id;
+  let sql = `Select * FROM patient_record WHERE id= ${id}`;
+  let query =db.query(sql, (err, result) =>{
+    if(err){
+      console.log('Error fething patient info');
+    }
+    else{
+      console.log("patient info fetched" + result);
+      res.send(result);
+    }
+  });
+});
+
+//select records by patient name
+app.get(`/getpatientname`, (req, res) =>{
+  let temp=req.query.name;
+  //console.log(typeof(temp));
+  //let search= temp;
+  let sql = `SELECT * FROM HealthTrack.patient_record WHERE name= "${temp}"`;
+  console.log(sql);
+  let query =db.query(sql, (err, result) =>{
+    if(err){
+      console.log("Error: No patient with that name");
+    }
+    else{
+      console.log("Patient info found");
+      res.send(result);
+    }
+  });
+});
+
+app.get('/getpatientnumber/:number', (req, res) =>{
+  let number=req.params.number;
+  let sql = `Select * FROM patient_record WHERE phone_number= ${number}`;
+  let query =db.query(sql, (err, result) =>{
+    if(err){
+      console.log("Error: Could not fetch patient info");
+      
+    }
+    else{
+      console.log("patient info fetched" );
+      res.send(result);
     }
   });
 });
@@ -247,15 +293,15 @@ app.get('/addencounter', (req,res) =>{
     }
     else{
       console.log(result);
-      res.send('Encouter info added!');
+      res.send(result);
     }
 
   });
 });
 
 //get all encounter info for a patient
-app.get('/getencounterpatid', (req,res) =>{
- let patid = req.body.patid; 
+app.get('/getencounterpatid/:patid', (req,res) =>{
+let patid = req.params.patid; 
 let sql = `SELECT * FROM HealthTrack.encounter_info WHERE patient_record_id = ${patid}`;
 let query= db.query(sql, (err, result) => {
   if(err){
@@ -263,15 +309,15 @@ let query= db.query(sql, (err, result) => {
   }
   else{
     console.log(result);
-    res.send('Encounter info retrieved');
+    res.send(result);
   }
 
 });
 });
 
 //get encounter info by encouter ID
-app.get('/getencounterid', (req,res) =>{
-  let id = req.body.id; 
+app.get('/getencounterid/:id', (req,res) =>{
+ let id = req.params.id; 
  let sql = `SELECT * FROM HealthTrack.encounter_info WHERE id = ${id}`;
  let query= db.query(sql, (err, result) => {
    if(err){
@@ -279,25 +325,22 @@ app.get('/getencounterid', (req,res) =>{
    }
    else{
      console.log(result);
-     res.send('Encounter info retrieved');
+     res.send(result);
    }
 
  });
 });
 
-//get encounter info by date
-app.get('/getencounterdate', (req,res) =>{
-  //the query for the database
-  date= req.body.date;
-  patid = req.body.id;
-  let sql = `SELECT * FROM HealthTrack.encounter_info WHERE date = ${date} AND patient_record_id = ${patid}`;
+//get encounter info by name
+app.get('/getallencounters', (req,res) =>{
+  let sql = `SELECT * FROM HealthTrack.encounter_info`;
   let query= db.query(sql, (err, result) => {
     if(err){
       console.log("Error getting Encounter info");
     }
     else{
       console.log(result);
-      res.send('Encounter info retrieved');
+      res.send(result);
     }
 
   });
